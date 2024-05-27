@@ -10,8 +10,14 @@ function App() {
   }
 
   return (
-    <main className="wrapper">
-      <div className='wrapper-form'><Form /></div>
+    <main className="container">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+
+      <div className="wrapper">
+        <Form />
+      </div>
     </main>
   );
 }
