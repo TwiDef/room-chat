@@ -32,9 +32,12 @@ app.post('/rooms', (req, res) => {
   res.send();
 });
 
-io.on('connection', socket => {
-  socket.on('ROOM:JOIN', (data) => {
-    console.log(data);
+io.on('connection', (socket) => {
+  socket.on('ROOM:JOIN', ({ roomID, userName }) => {
+    socket.join(roomID);
+    rooms.get(roomID).get('users').set(socket.id, userName);
+    const users = [...rooms.get(roomID).get('users').values()];
+    socket.to(roomID).emit('ROOM:JOINED', users);
   });
 
   console.log('user has been connected', socket.id);
@@ -43,7 +46,7 @@ io.on('connection', socket => {
 server.listen(9999, (err) => {
   if (err) {
     throw Error(err);
-  }
+  };
   console.log('server has been started');
 });
 
