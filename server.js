@@ -18,7 +18,25 @@ const rooms = new Map();
 app.get('/rooms', (req, res) => {
   res.json(rooms);
 });
+
+app.post('/rooms', (req, res) => {
+  const { roomID, userName } = req.body;
+
+  if (!rooms.has(roomID)) {
+    rooms.set(roomID, new Map([
+      ['users', new Map()],
+      ['messages', []],
+    ]));
+  };
+
+  res.send();
+});
+
 io.on('connection', socket => {
+  socket.on('ROOM:JOIN', (data) => {
+    console.log(data);
+  });
+
   console.log('user has been connected', socket.id);
 });
 

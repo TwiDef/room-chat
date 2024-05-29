@@ -115,7 +115,11 @@
     width: 100%;
   }
   
+  .submit:hover {
+    background-color: #272d5a;
+  }
+
   .submit:active {
-    background-color: #21264c;
+    background-color: #1e2245;
   }
   
