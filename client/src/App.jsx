@@ -11,7 +11,9 @@ function App() {
   const [state, dispatch] = React.useReducer(reducer, {
     joined: false,
     roomID: null,
-    userName: null
+    userName: null,
+    users: [],
+    messages: []
   })
 
   const onLogin = (obj) => {
@@ -24,9 +26,13 @@ function App() {
 
   React.useEffect(() => {
     socket.on('ROOM:JOINED', (users) => {
-      console.log('new user', users)
+      dispatch({
+        type: 'SET_USERS',
+        payload: users
+      })
     })
   }, [])
+
 
   return (
     <main className="container">
@@ -38,7 +44,7 @@ function App() {
         {
           !state.joined ?
             <Form onLogin={onLogin} /> :
-            <Chat />
+            <Chat {...state} />
         }
       </div>
     </main>

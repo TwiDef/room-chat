@@ -8,6 +8,19 @@ export default (state, action) => {
         userName: action.payload.userName
       }
 
+    case 'SET_USERS':
+      return {
+        ...state,
+        joined: true,
+        users: action.payload
+      }
+
+    case 'SET_MESSAGES':
+      return {
+        ...state,
+        joined: true,
+        messages: action.payload
+      }
 
     default:
       return state
